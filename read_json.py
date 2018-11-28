@@ -3,6 +3,7 @@ from pprint import pprint
 from geolite2 import geolite2
 from collections import Counter
 import matplotlib.pyplot as plt
+from mpl_toolkits.basemap import Basemap
 
 def stat_plot(x, y):
     plt.bar(range(len(x)), y, align='center')
@@ -16,11 +17,22 @@ def show_on_map(ip):
         reader = geolite2.reader()
         x = reader.get(i)
         if x is not None:
-            lon.append(x['location']['latitude'])
-            lat.append(x['location']['longitude'])
+            lat.append(float(x['location']['latitude']))
+            lon.append(float(x['location']['longitude']))
+    map = Basemap(projection='cyl')
 
-    print(lon)
-    print(lat)
+    # map.drawmapboundary(fill_color='aqua')
+    # map.fillcontinents(color='coral',lake_color='aqua')
+    # map.drawcoastlines()
+    map.bluemarble()
+
+    x, y = map(lon, lat)
+
+    map.scatter(x, y, marker='.',color='r')
+
+    plt.show()
+    # print(lon)
+    # print(lat)
 
 def loc_stat(ip):
     countries =[]
