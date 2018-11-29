@@ -48,14 +48,22 @@ total, success = percent_success_login(data)
 u = usernames(data)
 us = set(u)
 uc = Counter(u)
+for i in uc.most_common():
+    print('{}     :{}'.format(i[0], i[1]), file=open("username_freq.txt", "a"))
 u10 = uc.most_common(10)
 p = passwords(data)
 ps = set(p)
+for i in ps:
+    print(i, file=open("pass_obtained.txt", "a"))
 pc = Counter(p)
+for i in pc.most_common():
+    print('{}     :{}'.format(i[0], i[1]), file=open("password_freq.txt", "a"))
 p10 =  pc.most_common(10)
 up = userpasswd(data)
 ups = set(up)
 upc = Counter(up)
+for i in upc.most_common():
+    print('{}     :{}'.format(i[0], i[1]), file=open("user_pass_freq.txt", "a"))
 up10 = upc.most_common(10)
 print("total connections = {}".format(total))
 print("successful logins = {}".format(success))
